@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const getWeatherOfTheDay = () => {
   return "sunny";
@@ -7,24 +7,17 @@ const getWeatherOfTheDay = () => {
 function Home() {
   const [weather, setWeather] = useState(null);
 
+  useEffect(() => {
+    const weatherOfTheDay = getWeatherOfTheDay();
+
+    setWeather(weatherOfTheDay);
+  }, []);
+
   return (
     <>
       <h1>Hello from Home</h1>
 
-      {weather != null ? (
-        <p>Today is a {weather} day</p>
-      ) : (
-        <button
-          type="button"
-          onClick={() => {
-            const weatherOfTheDay = getWeatherOfTheDay();
-
-            setWeather(weatherOfTheDay);
-          }}
-        >
-          Get Weather
-        </button>
-      )}
+      {weather != null && <p>Today is a {weather} day</p>}
     </>
   );
 }
